@@ -132,12 +132,15 @@ module.exports = pool;
 
 ## Démarrage
 
+Dans un terminal 
+npm init -y
+
 Ouvrez deux terminaux différents.
 
 ### Terminal 1 - Backend
 
 cd event-backend
-npm start
+node ./src/server.js
 
 Le serveur API démarre sur http://localhost:5000
 
@@ -286,7 +289,7 @@ psql -U postgres -c "CREATE DATABASE event_manager;"
 
 cd event-backend
 npm install
-npm start
+node ./src/server.js
 
 4. Dans un autre terminal, démarrer le frontend :
 
@@ -300,6 +303,5 @@ npm run dev
 
 ISC - Libre d'utilisation
 
-Made with React
+Made with love and React !
 
-Bon développement !
