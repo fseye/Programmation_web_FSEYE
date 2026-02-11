@@ -1,0 +1,29 @@
+{
+  "name": "prog_web_v1",
+  "version": "1.0.0",
+  "description": "1. create a folder event-backend and cd in this folder\r 2. type the following commands : \r 3. npm init -y\r 4. npm install express core bcryptjs jsonwebtoken pg\r 5. cd ..\r 6. npm create vite@latest event-frontend -- --template react-ts\r 7. (npm run dev to launch the website)\r 8. cd event-frontend\r 9. npm install sass\r 10. npm install",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hugodlrll/Nantral-plateform-du-bled.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hugodlrll/Nantral-plateform-du-bled/issues"
+  },
+  "homepage": "https://github.com/hugodlrll/Nantral-plateform-du-bled#readme",
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-hover-card": "^1.1.15",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.6.0"
+  }
+}
