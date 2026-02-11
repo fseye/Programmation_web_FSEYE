@@ -110,7 +110,7 @@ export default function EventsPage() {
         location,
         maxSubscribers,
         category,
-        imageUrl,
+        imageUrl: imageUrl || undefined,
       });
     } catch (err) {
       if (err instanceof z.ZodError) {
