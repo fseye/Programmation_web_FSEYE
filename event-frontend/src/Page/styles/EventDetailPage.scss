@@ -1,0 +1,122 @@
+.event-detail-page {
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: background 0.5s ease, color 0.5s ease;
+  background: url('/images/light-pink_bg.jpg') no-repeat center center / cover;
+  color: #111;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.15);
+    backdrop-filter: blur(1px);
+    z-index: 0;
+  }
+
+  > * { position: relative; z-index: 1; }
+
+  .back-btn {
+    align-self: flex-start;
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    border: 1px solid rgba(236, 72, 153, 0.5);
+    background: rgba(236, 72, 153, 0.1);
+    color: #ec4899;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+    margin-bottom: 2rem;
+
+    &:hover {
+      background: rgba(236, 72, 153, 0.2);
+      transform: scale(1.05);
+    }
+  }
+
+  .detail-image-section {
+    width: 100%;
+    max-width: 600px;
+    height: 300px;
+    margin: 0 auto 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  .detail-content {
+    max-width: 700px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+      color: #111;
+    }
+
+    .detail-category {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      color: #666;
+    }
+
+    .detail-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #e5e7eb;
+
+      .info-block {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .label {
+          font-size: 0.85rem;
+          color: #999;
+          font-weight: 600;
+          text-transform: uppercase;
+        }
+
+        .value {
+          font-size: 1.1rem;
+          color: #111;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .detail-description {
+      h2 {
+        font-size: 1.3rem;
+        margin: 0 0 1rem 0;
+        color: #111;
+      }
+
+      p {
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: #333;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+    }
+  }
+}

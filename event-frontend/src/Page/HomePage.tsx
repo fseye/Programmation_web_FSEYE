@@ -35,7 +35,7 @@ export default function HomePage({ setUser }: Props) {
 
   return (
     <div className="auth-container">
-      <h1>Bienvenue !</h1>
+      <h1>Bienvenue sur le site de Fatou!</h1>
       <h2>{mode === "login" ? "Connexion" : "Inscription"}</h2>
       <form onSubmit={handleSubmit}>
         <input

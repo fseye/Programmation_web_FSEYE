@@ -7,8 +7,8 @@ import {
   createEvent,
   subscribeEvent,
   unsubscribeEvent,
-  updateEvent, 
-  fetchEventSubscribers, 
+  updateEvent,
+  fetchEventSubscribers,
   duplicateEventAPI
 } from "../API/event-actions";
 
@@ -17,6 +17,7 @@ import "./styles/EventsPage.scss";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import { EventSchema, type EventFormData } from "../utils/validation";
+import { useNavigate } from "react-router-dom";
 
 export default function EventsPage() {
   const [allEvents, setAllEvents] = useState<Event[]>([]);
@@ -55,6 +56,8 @@ export default function EventsPage() {
 
   // Image URL state
   const [imageUrl, setImageUrl] = useState("");
+
+  const navigate = useNavigate();
 
   // Toggle dark/light
   function toggleDarkMode() {
@@ -123,20 +126,20 @@ export default function EventsPage() {
       setImageUrl("");
       setAllEvents(prev => [event, ...prev]);
       setMyEvents(prev => [event, ...prev]);
-      setTitle(""); 
-      setDescription(""); 
-      setEventDate(""); 
-      setLocation(""); 
-      setCategory("Autres"); 
+      setTitle("");
+      setDescription("");
+      setEventDate("");
+      setLocation("");
+      setCategory("Autres");
       setMaxSubscribers(20);
       toast.success("Événement créé avec succès !");
       setCreating(false);
       reloadEvents();
-    } catch (err) { 
+    } catch (err) {
       toast.error("Impossible de créer l'événement");
     }
-    finally { 
-      setSubmitting(false); 
+    finally {
+      setSubmitting(false);
     }
   }
 
@@ -149,7 +152,7 @@ export default function EventsPage() {
       toast.success("Événement supprimé avec succès ! ")
       if (!res.ok) throw new Error("Delete failed");
       reloadEvents();
-    } catch {toast.error("Impossible de supprimer l'événement"); }
+    } catch { toast.error("Impossible de supprimer l'événement"); }
   }
 
   // Subscribe / Unsubscribe handlers
@@ -324,13 +327,18 @@ export default function EventsPage() {
                     <div 
                       key={e.event_id} 
                       className="event-card"
+                      onClick={() => navigate(`/events/${e.event_id}`)}
+                      style={{ cursor: "pointer" }}
                     >
-                      <div 
-                        className="card-image-section" 
-                        style={{
-                          backgroundImage: e.image_url ? `url("${e.image_url}")` : undefined,
-                        }}
-                      />
+                      <div className="card-image-section">
+                        {e.image_url ? (
+                          <img src={e.image_url} alt={e.title} className="card-image" />
+                        ) : (
+                          <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #ec4899, #f59e0b)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 'bold' }}>
+                            {e.title}
+                          </div>
+                        )}
+                      </div>
                       
                       <div className="card-content">
                         <h2>{e.title}</h2>
@@ -345,7 +353,7 @@ export default function EventsPage() {
                               <button
                                 className="card-icon-btn"
                                 title="Se désinscrire"
-                                onClick={async () => { await handleUnsubscribe(e.event_id); reloadEvents(); }}
+                                onClick={async (ev) => { ev.stopPropagation(); await handleUnsubscribe(e.event_id); reloadEvents(); }}
                               >
                                 ✖️
                               </button>
@@ -353,7 +361,7 @@ export default function EventsPage() {
                               <button
                                 className="card-icon-btn"
                                 title="S'inscrire"
-                                onClick={async () => { await handleSubscribe(e.event_id); reloadEvents(); }}
+                                onClick={async (ev) => { ev.stopPropagation(); await handleSubscribe(e.event_id); reloadEvents(); }}
                               >
                                 ✔️
                               </button>
@@ -392,13 +400,18 @@ export default function EventsPage() {
                     <div 
                       key={e.event_id} 
                       className="event-card"
+                      onClick={() => navigate(`/events/${e.event_id}`)}
+                      style={{ cursor: "pointer" }}
                     >
-                      <div 
-                        className="card-image-section" 
-                        style={{
-                          backgroundImage: e.image_url ? `url("${e.image_url}")` : undefined,
-                        }}
-                      />
+                      <div className="card-image-section">
+                        {e.image_url ? (
+                          <img src={e.image_url} alt={e.title} className="card-image" />
+                        ) : (
+                          <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #ec4899, #f59e0b)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 'bold' }}>
+                            {e.title}
+                          </div>
+                        )}
+                      </div>
                       
                       <div className="card-content">
                         <h2>{e.title}</h2>
@@ -437,13 +450,19 @@ export default function EventsPage() {
                   <div 
                       key={e.event_id} 
                       className="event-card"
+                      onClick={() => navigate(`/events/${e.event_id}`)}
+                      style={{ cursor: "pointer" }}
                     >
-                      <div 
-                        className="card-image-section" 
-                        style={{
-                          backgroundImage: e.image_url ? `url("${e.image_url}")` : undefined,
-                        }}
-                      />
+                    
+                      <div className="card-image-section">
+                        {e.image_url ? (
+                          <img src={e.image_url} alt={e.title} className="card-image" />
+                        ) : (
+                          <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #ec4899, #f59e0b)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 'bold' }}>
+                            {e.title}
+                          </div>
+                        )}
+                      </div>
                     
                     <div className="card-content">
                       <h2>{e.title}</h2>
@@ -456,28 +475,28 @@ export default function EventsPage() {
                         <button
                           className="card-icon-btn"
                           title="Modifier"
-                          onClick={() => setEditingEvent(e)}
+                          onClick={(ev) => { ev.stopPropagation(); setEditingEvent(e); }}
                         >
                           ✏️
                         </button>
                         <button
                           className="card-icon-btn"
                           title="Dupliquer"
-                          onClick={() => handleDuplicate(e.event_id)}
+                          onClick={(ev) => { ev.stopPropagation(); handleDuplicate(e.event_id); }}
                         >
                           📋
                         </button>
                         <button
                           className="card-icon-btn"
                           title="Voir inscrits"
-                          onClick={() => openSubscribers(e.event_id, e.title)}
+                          onClick={(ev) => { ev.stopPropagation(); openSubscribers(e.event_id, e.title); }}
                         >
                           👥
                         </button>
                         <button
                           className="card-icon-btn"
                           title="Supprimer"
-                          onClick={() => handleDelete(e.event_id)}
+                          onClick={(ev) => { ev.stopPropagation(); handleDelete(e.event_id); }}
                         >
                           🗑️
                         </button>
@@ -493,15 +512,20 @@ export default function EventsPage() {
               <div className="events-grid">
                 {filteredPastMine.map(e => (
                   <div 
-                      key={e.event_id} 
-                      className="event-card"
+                    key={e.event_id} 
+                    className="event-card"
+                    onClick={() => navigate(`/events/${e.event_id}`)}
+                    style={{ cursor: "pointer" }}
                     >
-                      <div 
-                        className="card-image-section" 
-                        style={{
-                          backgroundImage: e.image_url ? `url("${e.image_url}")` : undefined,
-                        }}
-                      />
+                      <div className="card-image-section">
+                        {e.image_url ? (
+                          <img src={e.image_url} alt={e.title} className="card-image" />
+                        ) : (
+                          <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #ec4899, #f59e0b)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 'bold' }}>
+                            {e.title}
+                          </div>
+                        )}
+                      </div>
                     
                     <div className="card-content">
                       <h2>{e.title}</h2>
@@ -580,14 +604,14 @@ export default function EventsPage() {
                   editingEvent.location || "",
                   editingEvent.max_subscribers,
                   editingEvent.category || "Autres",
-                  editingEvent.image_url || "" 
+                  editingEvent.image_url || ""
                 );
                 toast.success("Evènement modifié avec succès");
                 setAllEvents(prev => prev.map(ev => ev.event_id === updated.event_id ? updated : ev));
                 setMyEvents(prev => prev.map(ev => ev.event_id === updated.event_id ? updated : ev));
                 setEditingEvent(null);
-              } catch { 
-                toast.error("Erreur lors de la modification"); 
+              } catch {
+                toast.error("Erreur lors de la modification");
               }
             }}>
 
